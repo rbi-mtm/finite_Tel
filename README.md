@@ -25,7 +25,7 @@ One can download necessary bigger files: **86_fermi.json**, **86_fermi-krr-weigh
 
 In the directory **1H_NbSe2_3x3x1** we provide an example of the files used for dataset construction using **VASP**. The given example collects 3x3x1 supercell structures.<br>
 
-After obtaining data from **VASP** we have **OUTCAR** and **vasprun.xml** files (to format **vasprun.xml** we use command from the **command_vasprun_formatting.txt** file from the **bash_scripts** directory) and use the scripts: **wght_nrg_extractor_for_dos.py**, **dos_builder_fermi_align.py**, **concatenation.py** and **mace_sets.py** from the **python_scripts** directory to construct the datasets.<br>
+After obtaining data from **VASP** we have **OUTCAR** and **vasprun.xml** files (to format **vasprun.xml** files we use commands from the **vasprun_formatting.txt** file from the **bash_scripts** directory) and use the scripts: **wght_nrg_extractor_for_dos.py**, **dos_builder_fermi_align.py**, **concatenation.py** and **mace_sets.py** from the **python_scripts** directory to construct the datasets.<br>
 
 We have trained an machine learning model for the electronic temperature independent part of the free energy using **MACE**. We have performed the training on the NVIDIA GPU cluster using the **.sh** script from the **bash_scripts** directory.<br>
 
