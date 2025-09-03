@@ -33,4 +33,6 @@ To train the model for the electronic density of states at 0K we firstly do the 
 
 We perform the harmonic phonon calculations using the **.py** script from the **python_scripts** directory. If we have also performed DFT harmonic phonon calculations with VASP we can plot both of these results using the **plotting_diff_temp_subplots.py** script from the **python_scripts** directory.<br>
 
-To include the anharmonic effects, through the ionic temperatures, when we calculate the phonon dispersions we have used [**SSCHA**](https://sscha.eu/). We have performed the calculations where the electronic temperature is set to 0K and the ionic one changes using the **1H_NbSe2_SSCHA.py** script from the **python_scripts** directory. To perform the calculations with **SSCHA** where we also include electronic temperatures we have used the **1H_NbSe2_laser.py** script from the **python_scripts** directory.
+To include the anharmonic effects, through the ionic temperatures, when we calculate the phonon dispersions we have used [**SSCHA**](https://sscha.eu/). We have performed the calculations where the electronic temperature is set to 0K and the ionic one changes using the **1H_NbSe2_SSCHA.py** script from the **python_scripts** directory. To perform the calculations with **SSCHA** where we also include electronic temperatures we have used the **1H_NbSe2_laser.py** script from the **python_scripts** directory.<br>
+
+All of the phonon calculations are done with the **c2db-12553.json** unit cell as the starting point.
