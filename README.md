@@ -12,7 +12,7 @@ We have installed *librascal* Python package from [this repository (finite_T_cal
 
 To install conda environments one can use **cpu_environment.yml** and **gpu_environment.yml** files.<br>
 
-For the calculations we have used CPU clusters with both Slurm and PBS workload managers, and a GPU cluster with NVIDIA GPU units.<br>
+For the calculations we have used CPU clusters with both Slurm and PBS workload managers, and a NVIDIA GPU cluster.<br>
 
 For DFT calculations we have used **VASP**, version 6.4.2.
 
