@@ -1,0 +1,38 @@
+EDIFF  = 1E-6
+
+ENCUT=270
+ISMEAR = 1
+SIGMA = 0.0043
+NBANDS = 150
+
+
+PREC = Accurate
+ALGO = Normal
+NELMIN = 6
+ISYM = 0      
+
+LREAL  = Auto   
+LWAVE = .FALSE.
+LCHARGE= .FALSE.
+
+NCORE = 8
+
+# Molecular dynamics parameters
+IBRION   =   0   # MD
+NSW      =   20000   # Number of steps
+POTIM    =   1.5   # Duration of one step (in fs)
+TEBEG    =   10  # K
+TEEND    =  300  # K
+MDALGO   =   1
+ISIF = 2
+SMASS = -1
+ANDERSEN_PROB = 0.2
+
+
+#Machine learning paramters
+ML_MODE = train
+ML_LMLFF = .TRUE.
+
+#ML_ICRITERIA = 0
+#ML_CTIFOR = 0.01
+

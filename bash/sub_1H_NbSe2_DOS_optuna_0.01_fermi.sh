@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition=long
-#SBATCH --job-name=full_models_fermi
+#SBATCH --job-name=1H_NbSe2_DOS_optuna_0.01_fermi
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64gb
 #SBATCH --nodes=1
@@ -15,4 +15,4 @@ export MKL_CBWR="AVX2"
 export I_MPI_FABRICS=shm:ofi
 ulimit -s unlimited
 
-python3 full_models.py > log_full_models
+python3 1H_NbSe2_DOS_optuna_0.01_fermi.py > log_1H_NbSe2_DOS_optuna_0.01_fermi
