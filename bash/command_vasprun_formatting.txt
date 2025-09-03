@@ -1,0 +1,3 @@
+head -n $(grep -n '<time name="totalsc">' vasprun.xml | tail -n 1 | cut -d: -f1) vasprun.xml > temp.xml && mv temp.xml vasprun.xml
+
+echo "</modeling>" >> vasprun.xml
