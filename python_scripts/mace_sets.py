@@ -1,7 +1,7 @@
 from ase.io import read, write
 import numpy as np
 
-frames = read("1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_tot_MACE.xyz", ":")
+frames = read("./1H_NbSe2_frames_tot_MACE.xyz", ":")
 
 np.random.seed(10)
 ntot = len(frames)
@@ -20,5 +20,5 @@ for i in itrain:
 for i in itest:
     frames_test.append(frames[i])
 
-write('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_train_MACE.xyz', frames_train, format="extxyz")
-write('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_test_MACE.xyz', frames_test, format="extxyz")
+write('./1H_NbSe2_frames_train_MACE.xyz', frames_train, format="extxyz")
+write('./1H_NbSe2_frames_test_MACE.xyz', frames_test, format="extxyz")

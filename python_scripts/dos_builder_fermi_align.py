@@ -16,10 +16,10 @@ kb = ase.units.kB
 emin_global, emax_global = None, None
 
 for i in range(0, 36):
-    fermi_energies = np.load('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_fermi_energies_{}.npy'.format(i))
-    weights_ = np.load('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_wght_dos_{}.npy'.format(i))
-    energies = np.load('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_nrg_dos_{}.npy'.format(i))
-    frames = read('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_{}.xyz'.format(i), index=':')
+    fermi_energies = np.load('./1H_NbSe2_fermi_energies_{}.npy'.format(i))
+    weights_ = np.load('./1H_NbSe2_wght_dos_{}.npy'.format(i))
+    energies = np.load('./1H_NbSe2_nrg_dos_{}.npy'.format(i))
+    frames = read('./1H_NbSe2_frames_{}.xyz'.format(i), index=':')
 
     weights = []
     for j in weights_:
@@ -48,5 +48,5 @@ for i in range(0, 36):
 		           weights=weights,
 		           natoms=natoms)
 
-    np.save('1H_NbSe2_data_for_dos_alignments_0.01/xdos/xdos_0.01_fermi_{}.npy'.format(i), xdos)
-    np.save('1H_NbSe2_data_for_dos_alignments_0.01/ldos/ldos_0.01_fermi_{}.npy'.format(i), ldos)
+    np.save('./xdos_0.01_fermi_{}.npy'.format(i), xdos)
+    np.save('./ldos_0.01_fermi_{}.npy'.format(i), ldos)

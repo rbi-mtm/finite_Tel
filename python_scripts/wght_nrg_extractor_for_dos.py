@@ -19,7 +19,7 @@ for number in range(0,87):
     energies_dos = []
     frames = []
     n_frames, nkpoints = None, None
-    with open('1H_NbSe2_data_for_dos_alignments_0.01/OUTCAR_{}'.format(number),'r') as f:
+    with open('./OUTCAR_{}'.format(number),'r') as f:
         lines = f.readlines()
         counter = []
         for i, line in enumerate(lines):
@@ -32,7 +32,7 @@ for number in range(0,87):
 
     n_frames = len(counter)
 
-    tree = ET.iterparse(r'1H_NbSe2_data_for_dos_alignments_0.01/vasprun_{}.xml'.format(number), events=['start', 'end'])
+    tree = ET.iterparse(r'./vasprun_{}.xml'.format(number), events=['start', 'end'])
 
     kpt_weights = None
 
@@ -47,7 +47,7 @@ for number in range(0,87):
 
     nrgs = []
 
-    with open('1H_NbSe2_data_for_dos_alignments_0.01/OUTCAR_{}'.format(number),'r') as scfout:
+    with open('./OUTCAR_{}'.format(number),'r') as scfout:
         scf = scfout.readlines()
         for i, line in enumerate(scf):
             if line.startswith('  band No.'):
@@ -69,25 +69,25 @@ for number in range(0,87):
         hlp = np.array(hlp)
         energies_dos.append(hlp)
 
-    frames.extend(read("1H_NbSe2_data_for_dos_alignments_0.01/vasprun_{}.xml".format(number), index = ':'))
+    frames.extend(read("./vasprun_{}.xml".format(number), index = ':'))
 
-    np.save('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_wght_dos_{}.npy'.format(number), np.array(weights_dos))
-    np.save('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_nrg_dos_{}.npy'.format(number), np.array(energies_dos))
-    np.save('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_fermi_energies_{}.npy'.format(number), np.array(fermi_energies))
-    write('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_{}.xyz'.format(number), frames, format="extxyz")
+    np.save('./1H_NbSe2_wght_dos_{}.npy'.format(number), np.array(weights_dos))
+    np.save('./1H_NbSe2_nrg_dos_{}.npy'.format(number), np.array(energies_dos))
+    np.save('./1H_NbSe2_fermi_energies_{}.npy'.format(number), np.array(fermi_energies))
+    write('./1H_NbSe2_frames_{}.xyz'.format(number), frames, format="extxyz")
 
-frames_tot_mace = read('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_0.xyz', index=':') #[]
+frames_tot_mace = read('./1H_NbSe2_frames_0.xyz', index=':') #[]
 
 for i in range(1,87):
-    fr = read('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_{}.xyz'.format(i), index=':')
+    fr = read('./1H_NbSe2_frames_{}.xyz'.format(i), index=':')
     frames_tot_mace = frames_tot_mace + fr
 
-write('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_tot_MACE.xyz', frames_tot_mace, format="extxyz")
+write('./1H_NbSe2_frames_tot_MACE.xyz', frames_tot_mace, format="extxyz")
 
-frames_tot_ml = read('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_0.xyz', index=':')
+frames_tot_ml = read('./1H_NbSe2_frames_0.xyz', index=':')
 
 for i in range(1,87):
-    fr = read('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_{}.xyz'.format(i), index=':')
+    fr = read('./1H_NbSe2_frames_{}.xyz'.format(i), index=':')
     frames_tot_ml = frames_tot_ml + fr
 
-write('1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_tot_ML.xyz', frames_tot_ml, format="extxyz")
+write('./1H_NbSe2_frames_tot_ML.xyz', frames_tot_ml, format="extxyz")

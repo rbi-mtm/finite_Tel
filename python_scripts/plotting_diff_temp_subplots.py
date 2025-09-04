@@ -37,10 +37,10 @@ for temp_dft in temps_dft:
     frequencies_temp8_dft = []
 
     if temp_dft == 0:
-        with open('/storage/LUKAB_STORAGE/1H_NbSe2_vasp_phonopy_9x9x1/band.yaml', 'r') as file:
+        with open('1H_NbSe2_vasp_phonopy_9x9x1/band.yaml', 'r') as file:
             data_dft = yaml.safe_load(file)
     else:
-        with open('/storage/LUKAB_STORAGE/1H_NbSe2_vasp_phonopy_diff_temp9x9/{}/band.yaml'.format(temp_dft), 'r') as file:
+        with open('1H_NbSe2_vasp_phonopy_diff_temp9x9/{}/band.yaml'.format(temp_dft), 'r') as file:
             data_dft = yaml.safe_load(file)
 
     for i in range(data_dft['nqpoint']):
@@ -81,16 +81,16 @@ for model in models:
     frequencies7 = []
     frequencies8 = []
 
-    distances_temp = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/kpoints.npy'.format(model))
-    frequencies_temp0 = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq0.npy'.format(model))
-    frequencies_temp1 = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq1.npy'.format(model))
-    frequencies_temp2 = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq2.npy'.format(model))
-    frequencies_temp3 = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq3.npy'.format(model))
-    frequencies_temp4 = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq4.npy'.format(model))
-    frequencies_temp5 = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq5.npy'.format(model))
-    frequencies_temp6 = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq6.npy'.format(model))
-    frequencies_temp7 = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq7.npy'.format(model))
-    frequencies_temp8 = np.load('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq8.npy'.format(model))
+    distances_temp = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/kpoints.npy'.format(model))
+    frequencies_temp0 = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq0.npy'.format(model))
+    frequencies_temp1 = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq1.npy'.format(model))
+    frequencies_temp2 = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq2.npy'.format(model))
+    frequencies_temp3 = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq3.npy'.format(model))
+    frequencies_temp4 = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq4.npy'.format(model))
+    frequencies_temp5 = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq5.npy'.format(model))
+    frequencies_temp6 = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq6.npy'.format(model))
+    frequencies_temp7 = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq7.npy'.format(model))
+    frequencies_temp8 = np.load('1H_NbSe2_smearings/0.01/ensemble_fermi_3/data/{}/freq8.npy'.format(model))
 
     for i in range(len(temps)):
         if temps[i] in temps_:
@@ -163,8 +163,8 @@ ax[1].axhline(0.0, ls = ':', color='black', linewidth=0.5)
 ax[1].legend(loc='lower right', fontsize=7.5)
     
 plt.tight_layout()
-plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/subplots_full.png')
-plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/subplots_full.pdf')
+plt.savefig('1H_NbSe2_smearings/0.01/ensemble_fermi_3/subplots_full.png')
+plt.savefig('1H_NbSe2_smearings/0.01/ensemble_fermi_3/subplots_full.pdf')
 plt.close()
         
 fig, ax = plt.subplots(2, 1, figsize=(3.2, 5))
@@ -210,6 +210,6 @@ ax[1].axhline(0.0, ls = ':', color='black', linewidth=0.5)
 ax[1].legend(loc='lower right', fontsize=7.5)
     
 plt.tight_layout()
-plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/subplots_acoustic.png')
-plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ensemble_fermi_3/subplots_acoustic.pdf')
+plt.savefig('1H_NbSe2_smearings/0.01/ensemble_fermi_3/subplots_acoustic.png')
+plt.savefig('1H_NbSe2_smearings/0.01/ensemble_fermi_3/subplots_acoustic.pdf')
 plt.close()

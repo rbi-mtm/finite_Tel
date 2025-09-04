@@ -56,13 +56,13 @@ for x in frames_tot:
 xdos = None
 ldos = None
 
-xdos = np.load("/storage/LUKAB_STORAGE/1H_NbSe2_data_for_dos_alignments_0.01/xdos_0.01_fermi_tot_all.npy")
-ldos = np.load("/storage/LUKAB_STORAGE/1H_NbSe2_data_for_dos_alignments_0.01/ldos_0.01_fermi_tot_all.npy")
+xdos = np.load("./xdos_0.01_fermi_tot_all.npy")
+ldos = np.load("./ldos_0.01_fermi_tot_all.npy")
 
 ntot = len(frames_tot)
 
-itrain = np.load("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/1H_NbSe2_itrain_DOS_optuna_0.01_fermi_3.npy")
-itest = np.load("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/1H_NbSe2_itest_DOS_optuna_0.01_fermi_3.npy")
+itrain = np.load("./1H_NbSe2_itrain_DOS_optuna_0.01_fermi.npy")
+itest = np.load("./1H_NbSe2_itest_DOS_optuna_0.01_fermi.npy")
 
 frames_train, frames_test = [], []
 
@@ -85,7 +85,7 @@ for i in species_counts:
     Nb_count += int(i['Nb'])
     Se_count += int(i['Se'])
 
-mean_dos_per_atom = np.load("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/1H_NbSe2_mean_dos_per_atom_optuna_0.01_fermi_3.npy")
+mean_dos_per_atom = np.load("./1H_NbSe2_mean_dos_per_atom_optuna_0.01_fermi.npy")
 
 mean_dos = np.zeros((ntot, ldos.shape[1]))
 for j in range(ntot):
@@ -97,7 +97,7 @@ n_sparse_percs, threshold_percs, zetas = [], [], []
 
 lines_ = []
 
-with open('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/1H_NbSe2_DOS_optuna_0.01_fermi_3-387252.err','r') as f:
+with open('./1H_NbSe2_DOS_optuna_0.01_fermi_3-387252.err','r') as f:
     lines = f.readlines()
     for line in lines:
         splt = line.split()
@@ -114,7 +114,7 @@ for i in lines_:
             threshold_percs.append(float(i[j+1][:-2]))
 
 for mdl in [86]: #range(0,100):
-    model = load_obj("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/models_fermi_3/{}_fermi.json".format(mdl))
+    model = load_obj("./{}_fermi.json".format(mdl))
     hlp = model.get_representation_calculator()
     
     hypers = dict(soap_type="PowerSpectrum",
@@ -164,7 +164,7 @@ for mdl in [86]: #range(0,100):
 
     kNM = np.array(kNM)
 
-    np.save('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/full_models_fermi_3/kNM/{}_fermi_2.npy'.format(mdl), kNM)
+    np.save('./{}_fermi.npy'.format(mdl), kNM)
 
     feat_ref = X_sparse.get_features()
     kMM = (feat_ref @ feat_ref.T)**zeta
@@ -180,8 +180,8 @@ for mdl in [86]: #range(0,100):
     plt.xticks(fontsize=7.5)
     plt.yticks(fontsize=7.5)
     plt.tight_layout()
-    plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/full_models_fermi_3/reg1_hausdorff/{}_hausdorff_2.png'.format(mdl))
-    plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/full_models_fermi_3/reg1_hausdorff/{}_hausdorff_2.pdf'.format(mdl))
+    plt.savefig('./{}_hausdorff.png'.format(mdl))
+    plt.savefig('./{}_hausdorff.pdf'.format(mdl))
     plt.close()
 
     threshold_perc = threshold_percs[mdl]
@@ -236,8 +236,8 @@ for mdl in [86]: #range(0,100):
     #plt.yticks(fontsize=7.5)
 
     plt.tight_layout()
-    plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/full_models_fermi_3/reg1_hausdorff/{}_reg1_2.png'.format(mdl))
-    plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/full_models_fermi_3/reg1_hausdorff/{}_reg1_2.pdf'.format(mdl))
+    plt.savefig('./{}_reg1.png'.format(mdl))
+    plt.savefig('./{}_reg1.pdf'.format(mdl))
     plt.close()
 
     regularization1 = reg_arr[errors.argmin()]
@@ -256,12 +256,12 @@ for mdl in [86]: #range(0,100):
 
     ldos_pred = np.array(ldos_pred)
 
-    np.save('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/full_models_fermi_3/ldos/ldos_{}_2.npy'.format(mdl), ldos_pred)
+    np.save('./ldos_{}.npy'.format(mdl), ldos_pred)
 
     scorer_train_flattened = get_score(ldos_pred[itrain].flatten(), ldos[itrain].flatten())
     scorer_test_flattened = get_score(ldos_pred[itest].flatten(), ldos[itest].flatten())
 
-    with open('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/full_models_fermi_3/statistics_2.txt', 'a') as f:
+    with open('./statistics.txt', 'a') as f:
         f.write('model_{}_statistics: '.format(mdl)+'\n')
         f.write('threshold: '+str(threshold)+'\n')
         f.write('regularization1: '+str(regularization1)+'\n')
@@ -280,7 +280,7 @@ for mdl in [86]: #range(0,100):
                 self_contributions =  {34: mean_dos_per_atom, 41: mean_dos_per_atom},
                 description = "model description")
 
-    dump_obj("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/full_models_fermi_3/models/{}_fermi_2.json".format(mdl), model)
+    dump_obj("./{}_fermi.json".format(mdl), model)
 
 
 

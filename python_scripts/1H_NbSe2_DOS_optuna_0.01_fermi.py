@@ -43,7 +43,7 @@ dx = 0.00025 #eV
 
 kb = ase.units.kB
 
-frames_tot = ase_io.read("/storage/LUKAB_STORAGE/1H_NbSe2_data_for_dos_alignments_0.01/dos_data/1H_NbSe2_frames_tot_ML_all.xyz", ":")
+frames_tot = ase_io.read("./1H_NbSe2_frames_tot_ML_all.xyz", ":")
 
 natoms = np.zeros(len(frames_tot), int)
 for j in range(len(frames_tot)):
@@ -55,8 +55,8 @@ for x in frames_tot:
 xdos = None
 ldos = None
 
-xdos = np.load("/storage/LUKAB_STORAGE/1H_NbSe2_data_for_dos_alignments_0.01/xdos_0.01_fermi_tot_all.npy")
-ldos = np.load("/storage/LUKAB_STORAGE/1H_NbSe2_data_for_dos_alignments_0.01/ldos_0.01_fermi_tot_all.npy")
+xdos = np.load("./xdos_0.01_fermi_tot_all.npy")
+ldos = np.load("./ldos_0.01_fermi_tot_all.npy")
 
 np.random.seed(10)
 ntot = len(frames_tot)
@@ -74,11 +74,11 @@ for i in itrain:
 for i in itest:
     frames_test.append(frames_tot[i])
 
-np.save("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/1H_NbSe2_itrain_DOS_optuna_0.01_fermi_3.npy", itrain)
-np.save("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/1H_NbSe2_itest_DOS_optuna_0.01_fermi_3.npy", itest)
+np.save("./1H_NbSe2_itrain_DOS_optuna_0.01_fermi_3.npy", itrain)
+np.save("./1H_NbSe2_itest_DOS_optuna_0.01_fermi_3.npy", itest)
 
 mean_dos_per_atom = np.mean((ldos.T / natoms).T, axis=0)
-np.save("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/1H_NbSe2_mean_dos_per_atom_optuna_0.01_fermi_3.npy", mean_dos_per_atom)
+np.save("./1H_NbSe2_mean_dos_per_atom_optuna_0.01_fermi_3.npy", mean_dos_per_atom)
 
 mean_dos = np.zeros((ntot, ldos.shape[1]))
 for j in range(ntot):
@@ -95,8 +95,8 @@ def objective(trial, xdos, ldos, mean_dos, frames_tot, frames_train, train_dos, 
     ivalidation_temp = itrain_temp[int(0.8*len(itrain_temp)):]
     itrain_temp = itrain_temp[:int(0.8*len(itrain_temp))]
 
-    np.save("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/indices_temp_fermi_3/1H_NbSe2_itrain_temp_DOS_optuna_0.01_fermi_3_model_{}.npy".format(trial.number), itrain_temp)
-    np.save("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/indices_temp_fermi_3/1H_NbSe2_ivalidation_temp_DOS_optuna_0.01_fermi_3_model_{}.npy".format(trial.number), ivalidation_temp)
+    np.save("./1H_NbSe2_itrain_temp_DOS_optuna_0.01_fermi_3_model_{}.npy".format(trial.number), itrain_temp)
+    np.save("./1H_NbSe2_ivalidation_temp_DOS_optuna_0.01_fermi_3_model_{}.npy".format(trial.number), ivalidation_temp)
 
     frames_train_temp = []
 
@@ -169,7 +169,7 @@ def objective(trial, xdos, ldos, mean_dos, frames_tot, frames_train, train_dos, 
 
     kNM = np.array(kNM)
 
-    np.save('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/kNM_fermi_3/{}_fermi.npy'.format(trial.number), kNM)
+    np.save('./{}_fermi.npy'.format(trial.number), kNM)
 
     feat_ref = X_sparse.get_features()
     kMM = (feat_ref @ feat_ref.T)**zeta
@@ -181,7 +181,7 @@ def objective(trial, xdos, ldos, mean_dos, frames_tot, frames_train, train_dos, 
     plt.semilogy(eigval/eigval[0])
     plt.xlabel("Selected feature index")
     plt.ylabel("Hausdorff distance")
-    plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/optuna_reg1_hausdorff_3/fermi/{}_hausdorff.png'.format(trial.number))
+    plt.savefig('./{}_hausdorff.png'.format(trial.number))
     plt.close()
 
     threshold_perc = trial.suggest_categorical('threshold_perc', [1/3, 1/2, 2/3, 3/4])
@@ -220,7 +220,7 @@ def objective(trial, xdos, ldos, mean_dos, frames_tot, frames_train, train_dos, 
     plt.loglog(reg_arr, errors[:], "o-")
     plt.xlabel("Regularization")
     plt.ylabel("%RMSE")
-    plt.savefig('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/optuna_reg1_hausdorff_3/fermi/{}_reg1.png'.format(trial.number))
+    plt.savefig('./{}_reg1.png'.format(trial.number))
     plt.close()
 
     regularization1 = reg_arr[errors.argmin()]
@@ -239,13 +239,13 @@ def objective(trial, xdos, ldos, mean_dos, frames_tot, frames_train, train_dos, 
 
     ldos_pred = np.array(ldos_pred)
 
-    np.save('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/ldos_fermi_3/ldos_{}.npy'.format(trial.number), ldos_pred)
+    np.save('./ldos_{}.npy'.format(trial.number), ldos_pred)
 
     scorer_train_flattened = get_score(ldos_pred[itrain][itrain_temp].flatten(), ldos[itrain][itrain_temp].flatten())
     scorer_validation_flattened = get_score(ldos_pred[itrain][ivalidation_temp].flatten(), ldos[itrain][ivalidation_temp].flatten())
     scorer_test_flattened = get_score(ldos_pred[itest].flatten(), ldos[itest].flatten())
 
-    with open('/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/statistics_fermi_3.txt', 'a') as f:
+    with open('./statistics_fermi_3.txt', 'a') as f:
         f.write('model_{}_statistics: '.format(trial.number)+'\n')
         f.write('scale: '+str(scale)+'\n')
         f.write('threshold: '+str(threshold)+'\n')
@@ -269,7 +269,7 @@ def objective(trial, xdos, ldos, mean_dos, frames_tot, frames_train, train_dos, 
                 self_contributions =  {34: mean_dos_per_atom, 41: mean_dos_per_atom},
                 description = "model description")
 
-    dump_obj("/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/models_fermi_3/{}_fermi.json".format(trial.number), model)
+    dump_obj("./{}_fermi.json".format(trial.number), model)
     
     error = get_rmse(ldos_pred[itrain][ivalidation_temp], ldos[itrain][ivalidation_temp], xdos, perc=True)
     
@@ -281,7 +281,7 @@ study = optuna.create_study(sampler = sampler, direction = "minimize")
 func = lambda trial: objective(trial, xdos = xdos, ldos = ldos, mean_dos = mean_dos, frames_tot = frames_tot, frames_train = frames_train, train_dos = train_dos, itrain = itrain, itest = itest)
 
 study.optimize(func, n_trials = n_trials)
-joblib.dump(study, "/storage/LUKAB_STORAGE/1H_NbSe2_smearings/0.01/1H_NbSe2_DOS_optuna_0.01_fermi_3.pkl")
+joblib.dump(study, "./1H_NbSe2_DOS_optuna_0.01_fermi_3.pkl")
 
 print("Best params:")
 for key, value in study.best_params.items():
